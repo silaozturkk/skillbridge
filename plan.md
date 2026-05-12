@@ -198,3 +198,31 @@ The MVP will be considered successful if:
 - Users can message each other
 - Reviews can be submitted
 - Frontend and backend communicate successfully
+
+# Folder Structure
+
+```bash
+skillbridge/
+│
+├── frontend/
+│   ├── src/
+│   │   ├── api/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── layouts/
+│   │   ├── context/
+│   │   ├── hooks/
+│   │   ├── routes/
+│   │   ├── utils/
+│   │   └── assets/
+│
+└── backend/
+    ├── config/
+    ├── controllers/
+    ├── middleware/
+    ├── models/
+    ├── routes/
+    ├── services/
+    ├── utils/
+    └── server.js
+
