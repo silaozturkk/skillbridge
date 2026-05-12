@@ -1,228 +1,414 @@
-# SkillBridge Development Plan
-
-## Project Overview
-
-SkillBridge is a mini freelance marketplace web application similar to Fiverr.  
-Users can create profiles, post jobs, submit proposals, communicate with each other, and leave reviews.
-
-The project will be developed with separate frontend and backend services.
+# SkillBridge Development Execution Plan
 
 ---
 
-# Tech Stack
+# Project Goal
+
+Build a full-stack freelance marketplace MVP called SkillBridge.
+
+The application must allow:
+
+* User authentication
+* Profile management
+* Job posting
+* Proposal submission
+* Messaging
+* Reviews and ratings
+
+The project will be developed step-by-step using AI-assisted development.
+
+---
+
+# Development Rules
+
+* Complete one phase before moving to the next
+* Keep frontend and backend separated
+* Test each feature after implementation
+* Use reusable components
+* Follow REST API conventions
+* Use clean folder architecture
+* Commit after each completed feature
+
+---
+
+# STEP 1 — Initial Project Setup
+
+# Objective
+
+Create the frontend and backend project structure.
+
+# Tasks
 
 ## Frontend
-- React
-- TailwindCSS
-- React Router
-- Axios
+
+* Initialize React project with Vite
+* Install:
+
+  * react-router-dom
+  * axios
+  * tailwindcss
+* Configure TailwindCSS
+* Create folder structure:
+
+  * components
+  * pages
+  * layouts
+  * services
+  * routes
+  * context
+  * hooks
 
 ## Backend
-- Node.js
-- Express.js
-- MongoDB
-- JWT Authentication
+
+* Initialize Node.js project
+* Install:
+
+  * express
+  * mongoose
+  * cors
+  * dotenv
+  * nodemon
+* Create folder structure:
+
+  * controllers
+  * routes
+  * middleware
+  * models
+  * config
+
+# Expected Result
+
+* Frontend runs successfully
+* Backend server runs successfully
+* MongoDB connection works
 
 ---
 
-# Project Structure
+# STEP 2 — Authentication System
 
-```bash
-skillbridge/
-│
-├── frontend/
-│
-└── backend/
-```
+# Objective
 
----
+Implement user authentication using JWT.
 
-# Phase 1 — Project Setup
+# Backend Tasks
 
-## Backend Setup
-- Initialize Node.js project
-- Install Express.js
-- Configure environment variables
-- Setup MongoDB connection
-- Create basic server structure
-- Create routes/controllers folders
-- Setup error handling middleware
+* Create User model
+* Add:
 
-## Frontend Setup
-- Initialize React application
-- Install TailwindCSS
-- Setup React Router
-- Create basic folder structure
-- Setup Axios service
-- Create reusable layout components
+  * username
+  * email
+  * password
+  * role
+* Hash passwords using bcrypt
+* Create register endpoint
+* Create login endpoint
+* Generate JWT token
+* Create auth middleware
 
----
+# Frontend Tasks
 
-# Phase 2 — Authentication System
+* Create Register page
+* Create Login page
+* Store JWT token
+* Create protected routes
+* Add logout functionality
 
-## Backend Tasks
-- Create User model
-- Implement register endpoint
-- Implement login endpoint
-- Hash passwords using bcrypt
-- Generate JWT tokens
-- Create authentication middleware
+# APIs
 
-## Frontend Tasks
-- Create login page
-- Create register page
-- Store JWT token
-- Protected routes
-- Logout functionality
+* POST /api/auth/register
+* POST /api/auth/login
+
+# Expected Result
+
+* Users can register
+* Users can login
+* Protected routes work
 
 ---
 
-# Phase 3 — User Profiles
+# STEP 3 — User Profile System
 
-## Backend Tasks
-- Create profile update endpoint
-- Add skills and bio fields
-- Upload profile image support
+# Objective
 
-## Frontend Tasks
-- Profile page UI
-- Edit profile form
-- Display user information
-- Upload profile image
+Allow users to manage their profiles.
 
----
+# Backend Tasks
 
-# Phase 4 — Job Posting System
+* Extend User model:
 
-## Backend Tasks
-- Create Job model
-- Create job posting endpoint
-- Fetch all jobs
-- Fetch single job
-- Delete/update job post
+  * bio
+  * skills
+  * profileImage
+* Create profile update API
+* Add authorization checks
 
-## Frontend Tasks
-- Job listing page
-- Job detail page
-- Create job form
-- Category filters
-- Search functionality
+# Frontend Tasks
 
----
+* Create profile page
+* Create edit profile form
+* Display user information
 
-# Phase 5 — Proposal System
+# APIs
 
-## Backend Tasks
-- Create Proposal model
-- Submit proposal endpoint
-- Fetch proposals for a job
+* GET /api/users/:id
+* PUT /api/users/:id
 
-## Frontend Tasks
-- Proposal submission form
-- Proposal list section
-- Freelancer proposal dashboard
+# Expected Result
+
+* Users can edit their profiles
+* Profile data persists in MongoDB
 
 ---
 
-# Phase 6 — Messaging System
+# STEP 4 — Job Posting System
 
-## Backend Tasks
-- Create Message model
-- Send message endpoint
-- Fetch conversation history
+# Objective
 
-## Frontend Tasks
-- Messaging UI
-- Conversation list
-- Chat interface
+Allow clients to create and manage jobs.
+
+# Backend Tasks
+
+* Create Job model
+* Add:
+
+  * title
+  * description
+  * budget
+  * category
+  * createdBy
+* Create CRUD APIs
+* Add search/filter functionality
+
+# Frontend Tasks
+
+* Create jobs page
+* Create single job page
+* Create job form
+* Create edit job form
+
+# APIs
+
+* POST /api/jobs
+* GET /api/jobs
+* GET /api/jobs/:id
+* PUT /api/jobs/:id
+* DELETE /api/jobs/:id
+
+# Expected Result
+
+* Users can create jobs
+* Users can edit/delete their own jobs
+* Jobs display correctly
 
 ---
 
-# Phase 7 — Review & Rating System
+# STEP 5 — Proposal System
 
-## Backend Tasks
-- Create Review model
-- Add review endpoint
-- Calculate average ratings
+# Objective
 
-## Frontend Tasks
-- Review form
-- Rating display
-- User reviews section
+Allow freelancers to apply for jobs.
+
+# Backend Tasks
+
+* Create Proposal model
+* Add:
+
+  * jobId
+  * freelancerId
+  * coverLetter
+  * proposedPrice
+* Prevent duplicate proposals
+
+# Frontend Tasks
+
+* Create proposal form
+* Create proposal dashboard
+
+# APIs
+
+* POST /api/proposals
+* GET /api/proposals/job/:jobId
+
+# Expected Result
+
+* Freelancers can submit proposals
+* Proposals are stored correctly
 
 ---
 
-# Phase 8 — UI Improvements
+# STEP 6 — Messaging System
 
-## Tasks
-- Responsive design
-- Loading states
-- Error handling
-- Toast notifications
-- Better dashboard layout
+# Objective
+
+Implement basic private messaging.
+
+# Backend Tasks
+
+* Create Message model
+* Add:
+
+  * sender
+  * receiver
+  * content
+* Create messaging APIs
+
+# Frontend Tasks
+
+* Create chat interface
+* Create conversation page
+* Add message sending
+
+# APIs
+
+* POST /api/messages
+* GET /api/messages/:userId
+
+# Expected Result
+
+* Users can exchange messages
+* Conversations persist in database
 
 ---
 
-# Phase 9 — Testing & Deployment
+# STEP 7 — Review & Rating System
 
-## Backend
-- Test API endpoints
-- Fix validation issues
-- Deploy backend service
+# Objective
+
+Allow users to leave reviews and ratings.
+
+# Backend Tasks
+
+* Create Review model
+* Add:
+
+  * reviewer
+  * targetUser
+  * rating
+  * comment
+* Validate rating between 1–5
+* Calculate average rating
+
+# Frontend Tasks
+
+* Create review form
+* Display ratings
+* Display review list
+
+# APIs
+
+* POST /api/reviews
+* GET /api/reviews/:userId
+
+# Expected Result
+
+* Users can leave reviews
+* Ratings display correctly
+
+---
+
+# STEP 8 — UI Improvements
+
+# Objective
+
+Improve usability and responsiveness.
+
+# Tasks
+
+* Responsive layout
+* Loading states
+* Error handling
+* Toast notifications
+* Better navigation
+* Improve forms and buttons
+
+# Expected Result
+
+* Application works on desktop and mobile
+* Better user experience
+
+---
+
+# STEP 9 — Testing & Bug Fixing
+
+# Objective
+
+Stabilize the application.
+
+# Tasks
+
+* Test APIs
+* Test authentication
+* Test CRUD operations
+* Fix frontend/backend bugs
+* Validate database operations
+
+# Expected Result
+
+* MVP works without major issues
+
+---
+
+# STEP 10 — Deployment
+
+# Objective
+
+Deploy the application publicly.
+
+# Tasks
 
 ## Frontend
-- Build production version
-- Deploy frontend
-- Connect production API
+
+Deploy to:
+
+* Vercel
+  or
+* Netlify
+
+## Backend
+
+Deploy to:
+
+* Render
+  or
+* Railway
+
+## Database
+
+Use:
+
+* MongoDB Atlas
+
+# Expected Result
+
+* Live frontend URL
+* Live backend API
+* Fully working deployed MVP
 
 ---
 
-# Future Improvements
+# Final Deliverables
 
-- Real-time messaging with Socket.IO
-- Online payment integration
-- AI-based freelancer recommendations
-- Notification system
-- Admin dashboard
-- Mobile application
+* Functional frontend
+* Functional backend
+* MongoDB integration
+* Deployment links
+* GitHub repositories
+* README.md
+* Environment example files
 
 ---
 
-# Success Criteria
+# Post-MVP Features
 
-The MVP will be considered successful if:
+The following features are NOT included in the MVP:
 
-- Users can register/login
-- Clients can post jobs
-- Freelancers can submit proposals
-- Users can message each other
-- Reviews can be submitted
-- Frontend and backend communicate successfully
+* Real-time chat
+* Socket.IO
+* Online payments
+* AI recommendation system
+* Mobile app
+* Video calls
+* Notifications
+* Admin dashboard
 
-# Folder Structure
-
-```bash
-skillbridge/
-│
-├── frontend/
-│   ├── src/
-│   │   ├── api/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── layouts/
-│   │   ├── context/
-│   │   ├── hooks/
-│   │   ├── routes/
-│   │   ├── utils/
-│   │   └── assets/
-│
-└── backend/
-    ├── config/
-    ├── controllers/
-    ├── middleware/
-    ├── models/
-    ├── routes/
-    ├── services/
-    ├── utils/
-    └── server.js
-
+These features may be added later.
